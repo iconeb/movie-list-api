@@ -34,4 +34,8 @@ movieSchema.set('toJSON', {
   }
 });
 
+movieSchema.methods.movielens_id = function () {
+  return this.tmdb_id ? "Meow name is " + this.tmdb_id : "I don't have a name";
+}
+
 module.exports = mongoose.model('Movie', movieSchema);

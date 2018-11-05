@@ -106,4 +106,21 @@ router.get('/movie-lists/:id',
   }
 );
 
+router.delete('/movie-lists/:id',
+  requireAuthentication,
+  validator({
+    params: {
+      id: joi.string().regex(/^[0-9A-F]{24}$/i).required()
+    }
+  }),
+  async (req, res, next) => {
+    try {
+      await User.findByIdAndRemove(req.validator.params.id);
+      res.json();
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 module.exports = router;
